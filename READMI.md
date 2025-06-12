@@ -24,3 +24,23 @@ Python — основной язык
 Django — фреймворк для работы с ORM, админкой, шаблонами
 Django REST Framework (DRF) — для создания RESTful API (get, post, patch)
 Redis, Docker
+
+Модели проекта:
+1. Users
+2. date
+3. mood 
+4. text (текстовое описание)
+
+mentalhealthjournal_project/
+│
+├── users/          # всё, что связано с пользователями
+│   └── models.py   # расширенная модель User, профили
+│
+├── journal/        # записи дневника
+│   └── models.py   # JournalEntry, Mood
+│
+├── analytics/      # анализ записей, отчёты, графики
+│   └── views.py    # вычисления, агрегаты
+│
+├── MentalHealthJournal/
+│   └── settings.py
