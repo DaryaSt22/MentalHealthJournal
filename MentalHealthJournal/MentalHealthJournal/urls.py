@@ -21,7 +21,12 @@ from django.urls import path, include
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+
+from users import views
 # from .views import ping
+from users.views import home, authorization
+from django.contrib.auth import views as auth_views
+
 
 schema_views = get_schema_view(
     openapi.Info(
@@ -38,10 +43,15 @@ schema_views = get_schema_view(
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', home, name='home'), # Cntr + D - продублировать строку
+    #path('login', authorization, name='login'),
+    path('/login', views.custom_login, name='login'),
+    path('/signUp', views.sign_up_user, name='signUp'),
+    path('/signUp', auth_views.LoginView.as_view(template_name='registration/signUp.html'), name='signUp')
 
 
 
     # Swagger & Redoc
-    path('swagger/', schema_views.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    path('redoc/', schema_views.with_ui('redoc', cache_timeout=8), name='schema-redoc'),
+    # path('swagger/', schema_views.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    # path('redoc/', schema_views.with_ui('redoc', cache_timeout=8), name='schema-redoc'),
 ]

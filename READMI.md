@@ -26,12 +26,17 @@ Django REST Framework (DRF) — для создания RESTful API (get, post, 
 Redis, Docker
 
 Модели проекта:
-1. Users
+1. users
 2. date
 3. mood 
 4. text (текстовое описание)
 
-mentalhealthjournal_project/
+Apps:
+1. analytics
+2. journal
+3. users
+
+MentalHealthJournal/
 │
 ├── users/          # всё, что связано с пользователями
 │   └── models.py   # расширенная модель User, профили

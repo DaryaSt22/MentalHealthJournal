@@ -1,0 +1,11 @@
+<h1>Authorisation</h1>
+<form method="post" action="http://127.0.0.1:8000/login/">
+    {% csrf_token %}
+    {{ form.username.label_tag }} {{ form.username }}
+    {{ form.password.label_tag }} {{ form.password }}
+    <button type="submit">Log in</button>
+</form>
+<p>You haven't account? <a href="{% url 'login' %}"></a></p>
+    <a href="{% url 'signUp' %}">
+    <button type="button">Sign up</button>
+</a>
