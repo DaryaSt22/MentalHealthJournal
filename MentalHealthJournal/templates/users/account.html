@@ -1,0 +1,11 @@
+{% block title %}My account{% endblock %}
+
+{% block content %}
+<h1>Welcome, {{ user.username }}!</h1>
+
+<p><strong>Name:</strong> {{ user.first_name }}</p>
+
+<hr>
+
+<a href="{% url 'logout' %}">Logout</a>
+{% endblock %}

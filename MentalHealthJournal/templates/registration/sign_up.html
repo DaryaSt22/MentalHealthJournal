@@ -1,5 +1,5 @@
 <h2>Registration</h2>
-<form method="post" action="http://127.0.0.1:8000/signUp/">
+<form method="post" action="http://127.0.0.1:8000/account/">
     {% csrf_token %}
     {{ form.username.label_tag }} {{ form.username }}
     {{ form.password.label_tag }} {{ form.password }}
