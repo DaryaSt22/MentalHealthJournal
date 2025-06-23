@@ -1,11 +1,11 @@
 {% block title %}My account{% endblock %}
 
 {% block content %}
-<h1>Welcome, {{ user.username }}!</h1>
+<h1>Welcome, {{ user.first_name|default:user.username }}!</h1>
 
-<p><strong>Name:</strong> {{ user.first_name }}</p>
+  <p><strong>Username:</strong> {{ user }}</p>
 
-<hr>
+  <hr>
 
-<a href="{% url 'logout' %}">Logout</a>
+  <a href="{% url 'logout' %}">Logout</a>
 {% endblock %}

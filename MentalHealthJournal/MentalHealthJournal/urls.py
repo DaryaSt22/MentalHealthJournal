@@ -24,7 +24,7 @@ from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from users import views
-from users.views import home, authorization
+from users.views import home
 from django.contrib.auth import views as auth_views
 from django.conf.urls.static import static
 from django.conf import settings
@@ -46,17 +46,18 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='home'), # Cntr + D - продублировать строку
-    path('/login/', authorization, name='login'),
-    path('/login', views.custom_login, name='login'),
-    path('/sign_up', views.sign_up_user, name='sign_up'),
+    #path('/login/', authorization, name='login'),
+    path('login/', views.custom_login, name='login'),
+    path('sign_up/', views.sign_up_user, name='sign_up'),
     #path('/sign_up', auth_views.LoginView.as_view(template_name='registration/sign_up.html'), name='signUp'),
     path('account/', views.account_view, name='account'),
+    #path('account', views.AccountView.as_view(), name='account'),
     #path('edit_account/', name='edit_account'),
-    path('/logout/', views.logout_account, name='logout'),
+    path('logout/', views.logout_account, name='logout'),
 ]
 
-if settings.DEBUG:
-    urlpatterns == static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
+# if settings.DEBUG:
+#     urlpatterns == static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
 
 
 
