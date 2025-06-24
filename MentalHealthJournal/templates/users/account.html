@@ -1,6 +1,7 @@
 {% block title %}My account{% endblock %}
 
 {% block content %}
+{% csrf_token %}
 <h1>Welcome, {{ user.first_name|default:user.username }}!</h1>
 
   <p><strong>Username:</strong> {{ user }}</p>

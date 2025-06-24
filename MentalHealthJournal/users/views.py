@@ -22,7 +22,10 @@ def custom_login(request):
             user = authenticate(username=username, password=password)
             if user:
                 login(request, user)
-                return redirect('account')
+                next_url = request.GET.get('next') or 'account'
+                return redirect(next_url)
+            else:
+                form.add_error(None, 'Неверное имя пользователя или пароль')
     else:
         form = LoginUserForm()
     return render(request, 'registration/login.html', {'form': form})
@@ -32,22 +35,32 @@ def sign_up_user(request):
     if request.method == 'POST':
         form = SignUpUserForm(request.POST)
         if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            first_name = form.cleaned_data.get('first_name', '')
+
+            # Создаём пользователя, не передавая repeat_password
             user = User.objects.create_user(
-                username=form.cleaned_data['username'],
-                password=form.cleaned_data['password']
+                username=username,
+                password=password,
+                first_name=first_name
             )
-            user.first_name = form.cleaned_data.get('first_name', '')
-            user.save()
+
             login(request, user)
             return redirect('account')
     else:
         form = SignUpUserForm()
+
     return render(request, 'registration/sign_up.html', {'form': form})
 
 
-
+@login_required
 def account_view(request):
-    return render(request, 'users/account.html')
+    user = request.user
+    return render(request, 'users/account.html', {'user': user})
+
+# def account_view(request):
+#     return render(request, 'users/account.html')
 
 
 class AccountView(LoginRequiredMixin, TemplateView):

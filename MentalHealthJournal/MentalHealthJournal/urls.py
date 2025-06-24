@@ -46,12 +46,9 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='home'), # Cntr + D - продублировать строку
-    #path('/login/', authorization, name='login'),
     path('login/', views.custom_login, name='login'),
     path('sign_up/', views.sign_up_user, name='sign_up'),
-    #path('/sign_up', auth_views.LoginView.as_view(template_name='registration/sign_up.html'), name='signUp'),
     path('account/', views.account_view, name='account'),
-    #path('account', views.AccountView.as_view(), name='account'),
     #path('edit_account/', name='edit_account'),
     path('logout/', views.logout_account, name='logout'),
 ]

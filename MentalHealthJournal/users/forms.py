@@ -31,13 +31,13 @@ class LoginUserForm(forms.Form):
 #         fields = ['username', 'password']
 
 class SignUpUserForm(forms.ModelForm):
-    first_name = forms.CharField(required=False)
+    username = forms.CharField(required=False)
     password = forms.CharField(widget=forms.PasswordInput)
     repeat_password = forms.CharField(widget=forms.PasswordInput)
 
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'password']
+        fields = ['username', 'first_name', 'password', 'repeat_password']
 
     def clean(self):
         cleaned_data = super().clean()
