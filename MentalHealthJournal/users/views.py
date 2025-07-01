@@ -1,10 +1,8 @@
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect
-from django.urls import reverse, reverse_lazy
+from django.contrib.auth import authenticate, login
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
 from django.views.generic import TemplateView
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView, UpdateView
 
 from users.forms import LoginUserForm, SignUpUserForm, ProfileForm
 from users.models import User
@@ -64,20 +62,15 @@ class SignUpFormView(FormView):
         return super().form_valid(form)
 
 
-@login_required
-def account_view(request):
-    if request.method == 'POST':
-        form = ProfileForm(instance=request.user, data=request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('users:account'))
-        else:
-            form = ProfileForm(instance=request.user)
-    user = request.user
-    return render(request, 'users/account.html', {'user': user})
+class AccountUpdateView(UpdateView):
+    model= User
+    template_name = 'users/account.html'
+    form_class = ProfileForm
+    success_url = reverse_lazy('account')
+
+    def get_object(self, queryset=None):
+        return self.request.user
 
 
-@login_required
-def logout_account(request):
-    logout(request)
-    return render(request, 'registration/logout.html')
+class LogOutTemplateView(TemplateView):
+    template_name = 'registration/logout.html'

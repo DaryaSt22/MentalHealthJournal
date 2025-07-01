@@ -24,7 +24,7 @@ from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from users import views
-from users.views import HomeView, LoginFormView, SignUpFormView
+from users.views import HomeView, LoginFormView, SignUpFormView, LogOutTemplateView,AccountUpdateView
 from django.contrib.auth import views as auth_views
 from django.conf.urls.static import static
 from django.conf import settings
@@ -48,9 +48,9 @@ urlpatterns = [
     path('', HomeView.as_view(extra_context={'title': 'MentalHealthJournal'}), name='HomeView'), # Cntr + D - продублировать строку
     path('login/', LoginFormView.as_view(), name='login'),
     path('sign_up/', SignUpFormView.as_view(), name='sign_up'),
-    path('account/', views.account_view, name='account'),
+    path('account/', AccountUpdateView.as_view(), name='account'),
     #path('edit_account/', name='edit_account'),
-    path('logout/', views.logout_account, name='logout'),
+    path('logout/', LogOutTemplateView.as_view(), name='logout'),
 ]
 
 # if settings.DEBUG:
