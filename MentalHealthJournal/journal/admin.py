@@ -1,9 +1,3 @@
-# from django.contrib import admin
-# from .models import JournalEntry
-#
-# admin.site.register(JournalEntry)
-
-
 from django.contrib import admin
 from .models import JournalEntry
 
@@ -11,4 +5,4 @@ from .models import JournalEntry
 class JournalEntryAdmin(admin.ModelAdmin):
     list_display = ('user', 'mood', 'date')
     list_filter = ('mood', 'date', 'user')
-    search_fields = ('user__username', 'text')
+    search_fields = ('user',)

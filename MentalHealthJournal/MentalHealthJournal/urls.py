@@ -24,7 +24,7 @@ from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from users import views
-from users.views import home
+from users.views import HomeView, LoginFormView, SignUpFormView
 from django.contrib.auth import views as auth_views
 from django.conf.urls.static import static
 from django.conf import settings
@@ -45,9 +45,9 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home, name='home'), # Cntr + D - продублировать строку
-    path('login/', views.custom_login, name='login'),
-    path('sign_up/', views.sign_up_user, name='sign_up'),
+    path('', HomeView.as_view(extra_context={'title': 'MentalHealthJournal'}), name='HomeView'), # Cntr + D - продублировать строку
+    path('login/', LoginFormView.as_view(), name='login'),
+    path('sign_up/', SignUpFormView.as_view(), name='sign_up'),
     path('account/', views.account_view, name='account'),
     #path('edit_account/', name='edit_account'),
     path('logout/', views.logout_account, name='logout'),
