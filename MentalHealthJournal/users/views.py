@@ -64,8 +64,8 @@ class SignUpFormView(FormView):
 
 class AccountUpdateView(UpdateView):
     model= User
-    template_name = 'users/account.html'
     form_class = ProfileForm
+    template_name = 'users/account.html'
     success_url = reverse_lazy('account')
 
     def get_object(self, queryset=None):

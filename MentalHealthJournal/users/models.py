@@ -7,6 +7,7 @@ class User(AbstractUser):
     gender = models.CharField(max_length=10, choices=[('male', 'Male'), ('female', 'Female')], blank=True, null=True)
     timezone = models.CharField(max_length=100, blank=True, null=True)
     image = models.ImageField(upload_to='users_image', null=True, blank=True)
+    is_verified_email = models.BooleanField(default=False)
 
 
     def __str__(self):
@@ -23,4 +24,16 @@ class Profile(models.Model):
     class Meta:
         verbose_name = 'Profile'
         verbose_name_plural = "Profiles"  # для админ
+
+
+class EmailVerification(models.Model):
+    code = models.UUIDField(unique=True)
+    user = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
+    expiration = models.DateTimeField()
+
+
+    def __str__(self):
+        return f"EmailVerification object for {self.user.email}"
+
 
