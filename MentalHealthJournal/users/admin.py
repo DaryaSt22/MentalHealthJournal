@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, Profile
+from .models import User, Profile, EmailVerification
 
 admin.site.register(User)
 
@@ -10,3 +10,10 @@ class ProfileAdmin(admin.ModelAdmin):
     fields = ('user', 'gender', 'goals', 'stress_level', 'avatar')
     search_fields = ('user',)
     ordering = ('user',)
+
+
+@admin.register(EmailVerification)
+class EmailVerificationAdmin(admin.ModelAdmin):
+    list_display = ('code', 'user', 'expiration')
+    fields = ('code', 'user', 'expiration', 'created')
+    readonly_fields = ('created',)

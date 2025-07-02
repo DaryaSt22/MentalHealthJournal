@@ -1,6 +1,10 @@
+import uuid
+from datetime import timedelta
 from django import forms
-from users.models import User, Profile
+from users.models import User, Profile, EmailVerification
 from django.contrib.auth.forms import UserCreationForm
+from django.utils.timezone import now
+
 
 
 class LoginUserForm(forms.Form):
@@ -12,16 +16,29 @@ class SignUpUserForm(forms.ModelForm):
     username = forms.CharField(required=False)
     password = forms.CharField(widget=forms.PasswordInput)
     repeat_password = forms.CharField(widget=forms.PasswordInput)
+    email = forms.EmailField(required=True)
 
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'password', 'repeat_password']
+        fields = ['username', 'first_name', 'email', 'password', 'repeat_password']
 
     def clean(self):
         cleaned_data = super().clean()
         if cleaned_data.get('password') != cleaned_data.get('repeat_password'):
             raise forms.ValidationError("Passwords do not match")
         return cleaned_data
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.set_password(self.cleaned_data['password'])
+        if commit:
+            user.save()
+            expiration = now() + timedelta(hours=48)
+            record = EmailVerification.objects.create(
+                email=uuid.uuid4(), user=user, expiration=expiration
+            )
+            record.send_verification_email()
+        return user
 
 
 class CustomUserCreationForm(UserCreationForm):

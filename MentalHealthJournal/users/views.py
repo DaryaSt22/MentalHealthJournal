@@ -61,6 +61,11 @@ class SignUpFormView(FormView):
         login(self.request, user)
         return super().form_valid(form)
 
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect(self.success_url)
+
 
 class AccountUpdateView(UpdateView):
     model= User
