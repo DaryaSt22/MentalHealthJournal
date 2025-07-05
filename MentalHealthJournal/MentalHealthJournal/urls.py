@@ -18,17 +18,17 @@ from asyncio import start_server
 from functools import cache
 from tkinter.font import names
 
-from django.contrib import admin
-from django.urls import path, include
-from rest_framework import permissions
-from drf_yasg.views import get_schema_view
-from drf_yasg import openapi
-from users import views
-from users.views import HomeView, LoginFormView, SignUpFormView, LogOutTemplateView,AccountUpdateView
-from django.contrib.auth import views as auth_views
-from django.conf.urls.static import static
 from django.conf import settings
-
+from django.conf.urls.static import static
+from django.contrib import admin
+from django.contrib.auth import views as auth_views
+from django.urls import include, path
+from drf_yasg import openapi
+from drf_yasg.views import get_schema_view
+from rest_framework import permissions
+from users import views
+from users.views import (AccountUpdateView, HomeView, LoginFormView,
+                         LogOutTemplateView, SignUpFormView)
 
 # schema_views = get_schema_view(
 #     openapi.Info(
@@ -51,6 +51,7 @@ urlpatterns = [
     path('account/', AccountUpdateView.as_view(), name='account'),
     #path('edit_account/', name='edit_account'),
     path('logout/', LogOutTemplateView.as_view(), name='logout'),
+    path('accounts/', include('allauth.urls')),
 ]
 
 # if settings.DEBUG:

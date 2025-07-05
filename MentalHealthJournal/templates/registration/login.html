@@ -1,5 +1,7 @@
 <h1>Authorization</h1>
 
+{% load socialaccount %}
+
 <form method="post" action="{% url 'login' %}">
     {% csrf_token %}
 
@@ -21,5 +23,5 @@
 
     <button type="submit">Log in</button>
 </form>
-
+<a href="{% provider_login_url "GitHub" process="connect" %}">Connect a GitHub account</a>
 <p>Don't have an account? <a href="{% url 'sign_up' %}">Sign up</a></p>
