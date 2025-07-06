@@ -202,7 +202,7 @@ SITE_ID = 1
 
 SOCIALACCOUNT_PROVIDERS = {
     'github': {
-        'GITHUB_URL': 'https://your.github-server.domain',
+        # 'GITHUB_URL': 'https://your.github-server.domain',
     }
 }
 

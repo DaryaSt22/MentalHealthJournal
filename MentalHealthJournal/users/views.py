@@ -9,11 +9,7 @@ from users.models import User
 
 class HomeView(TemplateView):
     template_name = 'users/greeting.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(HomeView, self).get_context_data()
-        context['title'] = 'MentalHealthJournal'
-        return context
+    title = 'MentalHealthJournal'
 
 
 class LoginFormView(FormView):
