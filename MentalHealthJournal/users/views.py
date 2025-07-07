@@ -3,6 +3,7 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView, UpdateView
+
 from users.forms import LoginUserForm, ProfileForm, SignUpUserForm
 from users.models import User
 

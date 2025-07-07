@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.github',
+    'debug_toolbar',
 
     'rest_framework_simplejwt',
     'drf_yasg',
@@ -87,6 +88,7 @@ MIDDLEWARE = [
     'allauth.account.middleware.AccountMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'MentalHealthJournal.urls'
@@ -109,6 +111,11 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'MentalHealthJournal.wsgi.application'
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+    'localhost',
+]
 
 
 # Database
@@ -205,5 +212,3 @@ SOCIALACCOUNT_PROVIDERS = {
         # 'GITHUB_URL': 'https://your.github-server.domain',
     }
 }
-
-

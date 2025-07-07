@@ -26,6 +26,7 @@ from django.urls import include, path
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
+
 from users import views
 from users.views import (AccountUpdateView, HomeView, LoginFormView,
                          LogOutTemplateView, SignUpFormView)
@@ -43,23 +44,25 @@ from users.views import (AccountUpdateView, HomeView, LoginFormView,
 #     permission_classes=(permissions.AllowAny,),
 # )
 
+# Cntr + D - продублировать строку
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', HomeView.as_view(extra_context={'title': 'MentalHealthJournal'}), name='HomeView'), # Cntr + D - продублировать строку
+    path('', HomeView.as_view(extra_context={'title': 'MentalHealthJournal'}), name='HomeView'),
     path('login/', LoginFormView.as_view(), name='login'),
     path('sign_up/', SignUpFormView.as_view(), name='sign_up'),
     path('account/', AccountUpdateView.as_view(), name='account'),
-    #path('edit_account/', name='edit_account'),
+    #  path('edit_account/', name='edit_account'),
     path('logout/', LogOutTemplateView.as_view(), name='logout'),
     path('accounts/', include('allauth.urls')),
 ]
 
-# if settings.DEBUG:
-#     urlpatterns == static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
+if settings.DEBUG:
+    urlpatterns.append(path('__debug__/', include('debug_toolbar.urls')))
+    urlpatterns == static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
 
     # Swagger & Redoc
     # path('swagger/', schema_views.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     # path('redoc/', schema_views.with_ui('redoc', cache_timeout=8), name='schema-redoc'),
-

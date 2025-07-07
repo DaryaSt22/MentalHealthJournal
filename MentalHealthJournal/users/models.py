@@ -49,5 +49,3 @@ class EmailVerification(models.Model):
             [self.user.email],
             fail_silently=False,
         )
-
-
