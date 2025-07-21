@@ -23,6 +23,12 @@ class Profile(models.Model):
     goals = models.TextField(blank=True)
     stress_level = models.IntegerField(null=True, blank=True)
     avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
+    day = models.TextField(blank=True)
+    photo = models.ImageField(upload_to='photo/', null=True, blank=True)
+    activity = models.TextField(blank=True)
+    gratitude = models.TextField(blank=True)
+    mood = models.TextField(blank=True)
+    notes = models.TextField(blank=True)
 
     class Meta:
         verbose_name = 'Profile'

@@ -51,4 +51,5 @@ class CustomUserCreationForm(UserCreationForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['gender', 'goals', 'stress_level', 'avatar']
+        fields = ['gender', 'goals', 'stress_level', 'avatar', 'day', 'photo', 'activity', 'gratitude',
+                  'mood', 'notes']

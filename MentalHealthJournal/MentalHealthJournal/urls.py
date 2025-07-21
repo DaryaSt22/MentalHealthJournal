@@ -14,23 +14,59 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from asyncio import start_server
+
+# from asyncio import start_server
 from functools import cache
-from tkinter.font import names
 
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.contrib.auth import views as auth_views
+#from django.contrib.auth import views as auth_views
 from django.urls import include, path
 from django.views.decorators.cache import cache_page
 from drf_yasg import openapi
-from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 
-from users import views
+from MentalHealthJournal import settings
 from users.views import (AccountUpdateView, HomeView, LoginFormView,
                          LogOutTemplateView, SignUpFormView)
+
+# from tkinter.font import names
+
+
+
+
+# from drf_yasg import openapi
+# from drf_yasg.views import get_schema_view
+# from rest_framework import permissions
+
+
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', cache_page(30)(HomeView.as_view(extra_context={'title': 'MentalHealthJournal'})), name='HomeView'),
+    path('login/', LoginFormView.as_view(), name='login'),
+    path('sign_up/', SignUpFormView.as_view(), name='sign_up'),
+    path('account/', AccountUpdateView.as_view(), name='account'),
+    #  path('edit_account/', name='edit_account'),
+    path('logout/', LogOutTemplateView.as_view(), name='logout'),
+    path('accounts/', include('allauth.urls')),
+]
+
+if settings.DEBUG:
+    import debug_toolbar
+
+    urlpatterns += [
+        path("__debug__/", include(debug_toolbar.urls)),
+    ]
+
+    urlpatterns += static(
+        settings.MEDIA_URL,
+        document_root=settings.MEDIA_ROOT,
+    )
+
+
+
 
 
 # schema_views = get_schema_view(
@@ -47,22 +83,6 @@ from users.views import (AccountUpdateView, HomeView, LoginFormView,
 # )
 
 # Cntr + D - продублировать строку
-
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', cache_page(30)(HomeView.as_view(extra_context={'title': 'MentalHealthJournal'})), name='HomeView'),
-    path('login/', LoginFormView.as_view(), name='login'),
-    path('sign_up/', SignUpFormView.as_view(), name='sign_up'),
-    path('account/', AccountUpdateView.as_view(), name='account'),
-    #  path('edit_account/', name='edit_account'),
-    path('logout/', LogOutTemplateView.as_view(), name='logout'),
-    path('accounts/', include('allauth.urls')),
-]
-
-if settings.DEBUG:
-    urlpatterns.append(path('__debug__/', include('debug_toolbar.urls')))
-    urlpatterns == static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
 
 
     # Swagger & Redoc
