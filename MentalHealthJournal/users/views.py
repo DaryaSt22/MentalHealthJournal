@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login
+from django.core.checks import messages
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView
@@ -70,6 +71,10 @@ class AccountUpdateView(UpdateView):
 
     def get_object(self, queryset=None):
         return self.request.user
+
+    def form_valid(self, form):
+        messages.success(self.request, 'Account was updated!')
+        return super().form_valid(form)
 
 
 class LogOutTemplateView(TemplateView):

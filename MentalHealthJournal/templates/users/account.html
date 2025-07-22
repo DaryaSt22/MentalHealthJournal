@@ -2,19 +2,20 @@
 
 {% block content %}
 <h1>Welcome, {{ request.user.username }}!</h1>
+  <form method="post" enctype="multipart/form-data">
 {% csrf_token %}
 
   <p><strong>Username:</strong> {{ user }}</p>
-  <p><strong>Goals:</strong> {{ goals }}</p>
-  <p><strong>Stress level:</strong> {{ stress_level }}</p>
-  <p><strong>How is your day?:</strong> {{ day }}</p>
-  <p><strong>Physical activity:</strong> {{ activity }}</p>
-  <p><strong>Gratitude:</strong> {{ gratitude }}</p>
-  <p><strong>Mood:</strong> {{ mood }}</p>
-  <p><strong>Notes:</strong> {{ notes }}</p>
+  <p><strong>Goals:</strong> {{ form.goals }}</p>
+  <p><strong>Stress level:</strong> {{ form.stress_level }}</p>
+  <p><strong>How is your day?:</strong> {{ form.day }}</p>
+  <p><strong>Physical activity:</strong> {{ form.activity }}</p>
+  <p><strong>Gratitude:</strong> {{ form.gratitude }}</p>
+  <p><strong>Mood:</strong> {{ form.mood }}</p>
+  <p><strong>Notes:</strong> {{ form.notes }}</p>
 
-
-
+  <button type="submit">Save</button>
+  </form>
 
   <hr>
 
