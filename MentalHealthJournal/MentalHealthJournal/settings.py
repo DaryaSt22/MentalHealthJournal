@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.github',
     'debug_toolbar',
     'rest_framework',
+    'rest_framework.authtoken',
 
     'rest_framework_simplejwt',
     'drf_yasg',
@@ -220,3 +221,11 @@ SOCIALACCOUNT_PROVIDERS = {
 
 CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
 CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379'
+
+
+REST_FRAMEWORK = {
+'DEFAULT_AUTHENTICATION_CLASSES': [
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+        'rest_framework.authentication.TokenAuthentication'
+    ],
+}

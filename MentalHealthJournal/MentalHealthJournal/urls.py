@@ -26,6 +26,7 @@ from django.urls import include, path
 from django.views.decorators.cache import cache_page
 from drf_yasg import openapi
 from rest_framework import permissions
+from rest_framework.authtoken.views import obtain_auth_token
 
 from MentalHealthJournal import settings
 from users.views import (AccountUpdateView, HomeView, LoginFormView,
@@ -51,6 +52,7 @@ urlpatterns = [
     #  path('edit_account/', name='edit_account'),
     path('logout/', LogOutTemplateView.as_view(), name='logout'),
     path('accounts/', include('allauth.urls')),
+    path('api-token-auth/', obtain_auth_token),
 ]
 
 if settings.DEBUG:
