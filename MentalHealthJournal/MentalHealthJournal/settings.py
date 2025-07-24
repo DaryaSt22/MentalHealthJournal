@@ -194,12 +194,12 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Oauth
 
-AUTHENTICATION_BACKENDS = [
-
-    'django.contrib.auth.backends.ModelBackend',
-
-    'allauth.account.auth_backends.AuthenticationBackend',
-]
+# AUTHENTICATION_BACKENDS = [
+#
+#     'django.contrib.auth.backends.ModelBackend',
+#
+#     'allauth.account.auth_backends.AuthenticationBackend',
+# ]
 
 SITE_ID = 1
 
@@ -223,9 +223,9 @@ CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
 CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379'
 
 
-REST_FRAMEWORK = {
-'DEFAULT_AUTHENTICATION_CLASSES': [
-        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
-        'rest_framework.authentication.TokenAuthentication'
-    ],
-}
+# REST_FRAMEWORK = {
+# 'DEFAULT_AUTHENTICATION_CLASSES': [
+#         'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+#         'rest_framework.authentication.TokenAuthentication'
+#     ],
+# }

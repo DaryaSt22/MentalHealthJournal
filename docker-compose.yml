@@ -1,0 +1,27 @@
+#version: '3.8'
+#
+#services:
+#  web:
+#    build: .
+#    ports:
+#      - "7899:8000"  # Django будет доступен на http://localhost:7899
+#    volumes:
+#      - .:/app
+#    env_file:
+#      - .env
+#    depends_on:
+#      - db
+#
+#  db:
+#    image: postgres:15
+#    environment:
+#      POSTGRES_DB: mentalhealthjournal
+#      POSTGRES_USER: postgres
+#      POSTGRES_PASSWORD: postgres
+#    ports:
+#      - "5433:5432"  # внешне PostgreSQL доступен на порту 5433
+#    volumes:
+#      - postgres_data:/var/lib/postgresql/data
+#
+#volumes:
+#  postgres_data:
