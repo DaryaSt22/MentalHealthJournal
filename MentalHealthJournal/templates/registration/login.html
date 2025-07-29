@@ -1,5 +1,6 @@
 <h1>Authorization</h1>
 
+
 {% load socialaccount %}
 
 <form method="post" action="{% url 'login' %}">
@@ -23,6 +24,7 @@
 
     <button type="submit">Log in</button>
 </form>
+
 <a href="{% provider_login_url 'github' process='connect' %}">Connect GitHub account</a>
 <a href="{% provider_login_url 'github' %}">Log in with GitHub</a>
 <p>Don't have an account? <a href="{% url 'sign_up' %}">Sign up</a></p>

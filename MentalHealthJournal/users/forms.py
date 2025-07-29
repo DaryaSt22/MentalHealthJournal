@@ -2,6 +2,7 @@ import uuid
 from datetime import timedelta
 
 from django import forms
+# from .models import DailyEntry
 from django.contrib.auth.forms import UserCreationForm
 from django.utils.timezone import now
 
@@ -53,3 +54,8 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         fields = ['gender', 'goals', 'stress_level', 'avatar', 'day', 'photo', 'activity', 'gratitude',
                   'mood', 'notes']
+
+# class DailyEntryForm(forms.ModelForm):
+#     class Meta:
+#         model = DailyEntry
+#         fields = ['goals', 'stress_level', 'day', 'activity', 'gratitude', 'mood', 'notes']

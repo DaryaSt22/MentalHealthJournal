@@ -2,8 +2,9 @@ from django.urls import path
 
 from . import views
 
-#from .views import home
-
+# from django.urls import path
+# from . import views
+#
 # urlpatterns = [
-#     path('', home, name='home'),
+#     path('account/', views.account_view, name='account'),
 # ]
