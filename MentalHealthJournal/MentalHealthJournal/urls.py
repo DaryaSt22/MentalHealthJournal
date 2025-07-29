@@ -30,7 +30,7 @@ from rest_framework.authtoken.views import obtain_auth_token
 
 from MentalHealthJournal import settings
 from users.views import (AccountUpdateView, HomeView, LoginFormView,
-                         LogOutTemplateView, SignUpFormView)
+                         LogOutTemplateView, SignUpFormView, JournalView)
 
 # from tkinter.font import names
 
@@ -53,6 +53,7 @@ urlpatterns = [
     path('logout/', LogOutTemplateView.as_view(), name='logout'),
     path('accounts/', include('allauth.urls')),
     path('api-token-auth/', obtain_auth_token),
+    path('account/', JournalView.as_view(), name='account'),
 ]
 
 if settings.DEBUG:

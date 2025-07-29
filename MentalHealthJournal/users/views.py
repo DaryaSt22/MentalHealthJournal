@@ -1,12 +1,13 @@
 from django.contrib.auth import authenticate, login
 from django.core.checks import messages
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
+from django.views import View
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView, UpdateView
 
-from users.forms import LoginUserForm, ProfileForm, SignUpUserForm
-from users.models import User
+from users.forms import LoginUserForm, ProfileForm, SignUpUserForm, EntryForm
+from users.models import User, Profile, DailyEntry
 
 
 class HomeView(TemplateView):
@@ -64,17 +65,43 @@ class SignUpFormView(FormView):
 
 
 class AccountUpdateView(UpdateView):
-    model= User
-    form_class = ProfileForm
     template_name = 'users/account.html'
     success_url = reverse_lazy('account')
 
-    def get_object(self, queryset=None):
-        return self.request.user
+    def get(self, request):
+        profile, created = Profile.objects.get_or_create(user=request.user)
+        form = ProfileForm(instance=profile)
+        return render(request, self.template_name, {'form': form, 'user': request.user})
 
-    def form_valid(self, form):
-        messages.success(self.request, 'Account was updated!')
-        return super().form_valid(form)
+    def post(self, request):
+        profile, created = Profile.objects.get_or_create(user=request.user)
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect(self.success_url)
+        return render(request, self.template_name, {'form': form, 'user': request.user})
+
+
+class JournalView(View):
+    template_name = 'users/account.html'
+
+    def get(self, request):
+        form = EntryForm()
+        entries = self.get_entries(request)
+        return render(request, self.template_name, {'form': form, 'entries': entries})
+
+    def post(self, request):
+        form = EntryForm(request.POST)
+        if form.is_valid():
+            entry = form.save(commit=False)
+            entry.user = request.user
+            entry.save()
+            return redirect('account')
+        entries = self.get_entries(request)
+        return render(request, self.template_name, {'form': form, 'entries': entries})
+
+    def get_entries(self, request):
+        return DailyEntry.objects.filter(user=request.user).order_by('-created_at')
 
 
 class LogOutTemplateView(TemplateView):

@@ -5,7 +5,6 @@
   <form method="post" enctype="multipart/form-data">
 {% csrf_token %}
 
-  <p><strong>Username:</strong> {{ user }}</p>
   <p><strong>Goals:</strong> {{ form.goals }}</p>
   <p><strong>Stress level:</strong> {{ form.stress_level }}</p>
   <p><strong>How is your day?:</strong> {{ form.day }}</p>
@@ -16,7 +15,22 @@
 
   <button type="submit">Save</button>
   </form>
-
+<hr>
+<h2>Your previous entries:</h2>
+{% for entry in entries %}
+  <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
+    <p><strong>Created:</strong> {{ entry.created_at }}</p>
+    <p><strong>Goals:</strong> {{ entry.goals }}</p>
+    <p><strong>Stress level:</strong> {{ entry.stress_level }}</p>
+    <p><strong>How is your day:</strong> {{ entry.day }}</p>
+    <p><strong>Physical activity:</strong> {{ entry.activity }}</p>
+    <p><strong>Gratitude:</strong> {{ entry.gratitude }}</p>
+    <p><strong>Mood:</strong> {{ entry.mood }}</p>
+    <p><strong>Notes:</strong> {{ entry.notes }}</p>
+  </div>
+{% empty %}
+  <p>No entries yet.</p>
+{% endfor %}
   <hr>
 
   <a href="{% url 'logout' %}">Logout</a>

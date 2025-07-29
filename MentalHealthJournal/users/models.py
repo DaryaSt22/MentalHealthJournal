@@ -5,6 +5,7 @@ from django.core.mail import send_mail
 from django.db import models
 
 
+
 class User(AbstractUser):
     age = models.PositiveIntegerField(null=True, blank=True)
     gender = models.CharField(max_length=10, choices=[('male', 'Male'), ('female', 'Female')], blank=True, null=True)
@@ -59,16 +60,16 @@ class EmailVerification(models.Model):
             fail_silently=False,
         )
 
-# class DailyEntry(models.Model):
-#     user = models.ForeignKey(User, on_delete=models.CASCADE)
-#     goals = models.TextField(blank=True)
-#     stress_level = models.IntegerField(null=True, blank=True)
-#     day = models.TextField(blank=True)
-#     activity = models.TextField(blank=True)
-#     gratitude = models.TextField(blank=True)
-#     mood = models.TextField(blank=True)
-#     notes = models.TextField(blank=True)
-#     created_at = models.DateTimeField(auto_now_add=True)
-#
-#     def __str__(self):
-#         return f"{self.user.username} - {self.created_at.date()}"
+class DailyEntry(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    goals = models.TextField(blank=True)
+    stress_level = models.IntegerField(null=True, blank=True)
+    day = models.TextField(blank=True)
+    activity = models.TextField(blank=True)
+    gratitude = models.TextField(blank=True)
+    mood = models.TextField(blank=True)
+    notes = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.created_at.date()}"
