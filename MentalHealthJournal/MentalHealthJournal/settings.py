@@ -55,9 +55,9 @@ INSTALLED_APPS = [
 
     'rest_framework_simplejwt',
     'drf_yasg',
-    'users',
     'journal',
     'analytics',
+    'users.apps.UsersConfig',
 ]
 
 SWAGGER_SETTINGS = {
