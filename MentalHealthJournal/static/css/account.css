@@ -1,0 +1,25 @@
+.form-row {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.form-row label {
+  width: 150px;          /* одинаковая ширина меток */
+  padding-top: 10px;     /* выравнивание по вертикали */
+  font-weight: bold;
+}
+
+.form-row input,
+.form-row textarea {
+  width: 500px;          /* одинаковая ширина всех полей */
+  height: 40px;
+  font-size: 16px;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.form-row textarea {
+  height: 120px;         /* чуть выше текстовые поля */
+  resize: none;
+}
