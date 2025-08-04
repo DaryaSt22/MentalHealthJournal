@@ -5,10 +5,11 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView, UpdateView
+from collections import Counter
 
 from users.forms import LoginUserForm, ProfileForm, SignUpUserForm, EntryForm
-from users.models import User, Profile, DailyEntry
-
+from users.models import User, Profile
+from journal.models import DailyEntry
 
 class HomeView(TemplateView):
     template_name = 'users/greeting.html'
@@ -88,7 +89,13 @@ class JournalView(View):
     def get(self, request):
         form = EntryForm()
         entries = self.get_entries(request)
-        return render(request, self.template_name, {'form': form, 'entries': entries})
+        mood_counts = Counter(entry.mood for entry in entries if entry.mood)
+
+        return render(request, self.template_name, {
+            'form': form,
+            'entries': entries,
+            'mood_data': dict(mood_counts)
+        })
 
     def post(self, request):
         form = EntryForm(request.POST)
@@ -97,8 +104,15 @@ class JournalView(View):
             entry.user = request.user
             entry.save()
             return redirect('account')
+
         entries = self.get_entries(request)
-        return render(request, self.template_name, {'form': form, 'entries': entries})
+        mood_counts = Counter(entry.mood for entry in entries if entry.mood)
+
+        return render(request, self.template_name, {
+            'form': form,
+            'entries': entries,
+            'mood_data': dict(mood_counts)
+        })
 
     def get_entries(self, request):
         return DailyEntry.objects.filter(user=request.user).order_by('-created_at')

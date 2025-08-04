@@ -2,7 +2,7 @@ import uuid
 from datetime import timedelta
 
 from django import forms
-from .models import DailyEntry
+from journal.models import DailyEntry
 from django.contrib.auth.forms import UserCreationForm
 from django.utils.timezone import now
 

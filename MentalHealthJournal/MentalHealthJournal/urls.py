@@ -21,7 +21,7 @@ from functools import cache
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-#from django.contrib.auth import views as auth_views
+from django.contrib.auth import views as auth_views
 from django.urls import include, path
 from django.views.decorators.cache import cache_page
 from drf_yasg import openapi
@@ -31,6 +31,7 @@ from rest_framework.authtoken.views import obtain_auth_token
 from MentalHealthJournal import settings
 from users.views import (AccountUpdateView, HomeView, LoginFormView,
                          LogOutTemplateView, SignUpFormView, JournalView)
+from journal.models import DailyEntry
 
 # from tkinter.font import names
 
@@ -54,6 +55,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('api-token-auth/', obtain_auth_token),
     path('account/', JournalView.as_view(), name='account'),
+    path("journal/", include("journal.urls"))
 ]
 
 if settings.DEBUG:
