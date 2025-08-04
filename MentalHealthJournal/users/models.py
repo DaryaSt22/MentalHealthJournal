@@ -5,7 +5,6 @@ from django.core.mail import send_mail
 from django.db import models
 
 
-
 class User(AbstractUser):
     age = models.PositiveIntegerField(null=True, blank=True)
     gender = models.CharField(max_length=10, choices=[('male', 'Male'), ('female', 'Female')], blank=True, null=True)

@@ -28,10 +28,10 @@ from drf_yasg import openapi
 from rest_framework import permissions
 from rest_framework.authtoken.views import obtain_auth_token
 
-from MentalHealthJournal import settings
-from users.views import (AccountUpdateView, HomeView, LoginFormView,
-                         LogOutTemplateView, SignUpFormView, JournalView)
 from journal.models import DailyEntry
+from MentalHealthJournal import settings
+from users.views import (AccountUpdateView, HomeView, JournalView,
+                         LoginFormView, LogOutTemplateView, SignUpFormView)
 
 # from tkinter.font import names
 
@@ -49,12 +49,12 @@ urlpatterns = [
     path('', cache_page(30)(HomeView.as_view(extra_context={'title': 'MentalHealthJournal'})), name='HomeView'),
     path('login/', LoginFormView.as_view(), name='login'),
     path('sign_up/', SignUpFormView.as_view(), name='sign_up'),
-    path('account/', AccountUpdateView.as_view(), name='account'),
+    path('account/', JournalView.as_view(), name='account'),
+    #path('account/', AccountUpdateView.as_view(), name='account'),
     #  path('edit_account/', name='edit_account'),
     path('logout/', LogOutTemplateView.as_view(), name='logout'),
     path('accounts/', include('allauth.urls')),
     path('api-token-auth/', obtain_auth_token),
-    path('account/', JournalView.as_view(), name='account'),
     path("journal/", include("journal.urls"))
 ]
 

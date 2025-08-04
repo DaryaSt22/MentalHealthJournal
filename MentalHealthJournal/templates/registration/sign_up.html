@@ -1,3 +1,6 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/signup.css' %}">
+
 <h2>Registration</h2>
 
 <form method="post" action="{% url 'sign_up' %}">
@@ -16,30 +19,11 @@
         </ul>
     {% endif %}
 
-    <div>
-        {{ form.username.label_tag }}
-        {{ form.username }}
-    </div>
-
-    <div>
-        {{ form.first_name.label_tag }}
-        {{ form.first_name }}
-    </div>
-
-    <div>
-        {{ form.password.label_tag }}
-        {{ form.password }}
-    </div>
-
-    <div>
-        {{ form.repeat_password.label_tag }}
-        {{ form.repeat_password }}
-    </div>
-
-    <div>
-        {{ form.email.label_tag }}
-        {{ form.email }}
-    </div>
+    <div>{{ form.username.label_tag }} {{ form.username }}</div>
+    <div>{{ form.first_name.label_tag }} {{ form.first_name }}</div>
+    <div>{{ form.password.label_tag }} {{ form.password }}</div>
+    <div>{{ form.repeat_password.label_tag }} {{ form.repeat_password }}</div>
+    <div>{{ form.email.label_tag }} {{ form.email }}</div>
 
     <button type="submit">Sign Up</button>
 </form>

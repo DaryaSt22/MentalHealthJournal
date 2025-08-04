@@ -1,3 +1,5 @@
+from collections import Counter
+
 from django.contrib.auth import authenticate, login
 from django.core.checks import messages
 from django.shortcuts import redirect, render
@@ -5,11 +7,11 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView, UpdateView
-from collections import Counter
 
-from users.forms import LoginUserForm, ProfileForm, SignUpUserForm, EntryForm
-from users.models import User, Profile
 from journal.models import DailyEntry
+from users.forms import EntryForm, LoginUserForm, ProfileForm, SignUpUserForm
+from users.models import Profile, User
+
 
 class HomeView(TemplateView):
     template_name = 'users/greeting.html'
