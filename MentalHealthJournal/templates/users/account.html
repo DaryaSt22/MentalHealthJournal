@@ -35,6 +35,9 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'account' %}">My account</a>
         </li>
+         <li class="nav-item">
+          <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+        </li>
       </ul>
     </div>
   </div>
@@ -42,6 +45,13 @@
 <h1>Welcome, {{ request.user.username }}!</h1>
 <form method="post" enctype="multipart/form-data">
   {% csrf_token %}
+
+  <p><strong>Avatar:</strong> {{ form.avatar }}</p>
+  {% if request.user.profile.avatar %}
+  <img src="{{ request.user.profile.avatar.url }}" alt="Avatar" width="150" height="150">
+{% else %}
+  <p>No avatar uploaded.</p>
+{% endif %}
 
   <div class="form-row">
     <label for="id_goals">Goals:</label>
@@ -98,5 +108,4 @@
   <p>No entries yet.</p>
 {% endfor %}
 
-<hr>
-<a href="{% url 'logout' %}">Logout</a>
+
