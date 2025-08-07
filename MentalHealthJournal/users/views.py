@@ -67,57 +67,46 @@ class SignUpFormView(FormView):
         return redirect(self.success_url)
 
 
-class AccountUpdateView(UpdateView):
-    template_name = 'users/account.html'
-    success_url = reverse_lazy('account')
-
-    def get(self, request):
-        profile, created = Profile.objects.get_or_create(user=request.user)
-        form = ProfileForm(instance=profile)
-        return render(request, self.template_name, {'form': form, 'user': request.user})
-
-    def post(self, request):
-        profile, created = Profile.objects.get_or_create(user=request.user)
-        form = ProfileForm(request.POST, request.FILES, instance=profile)
-        if form.is_valid():
-            form.save()
-            return redirect(self.success_url)
-        return render(request, self.template_name, {'form': form, 'user': request.user})
-
-
-class JournalView(View):
+class AccountView(View):
     template_name = 'users/account.html'
 
     def get(self, request):
-        form = EntryForm()
-        entries = self.get_entries(request)
+        profile, _ = Profile.objects.get_or_create(user=request.user)
+        profile_form = ProfileForm(instance=profile)
+        entry_form = EntryForm()
+        entries = DailyEntry.objects.filter(user=request.user).order_by('-created_at')
         mood_counts = Counter(entry.mood for entry in entries if entry.mood)
 
         return render(request, self.template_name, {
-            'form': form,
+            'profile_form': profile_form,
+            'form': entry_form,
             'entries': entries,
             'mood_data': dict(mood_counts)
         })
 
     def post(self, request):
-        form = EntryForm(request.POST)
-        if form.is_valid():
-            entry = form.save(commit=False)
+        profile, _ = Profile.objects.get_or_create(user=request.user)
+        profile_form = ProfileForm(request.POST, request.FILES, instance=profile)
+        entry_form = EntryForm(request.POST)
+
+        # Обработка обеих форм
+        if profile_form.is_valid():
+            profile_form.save()
+        if entry_form.is_valid():
+            entry = entry_form.save(commit=False)
             entry.user = request.user
             entry.save()
             return redirect('account')
 
-        entries = self.get_entries(request)
+        entries = DailyEntry.objects.filter(user=request.user).order_by('-created_at')
         mood_counts = Counter(entry.mood for entry in entries if entry.mood)
 
         return render(request, self.template_name, {
-            'form': form,
+            'profile_form': profile_form,
+            'form': entry_form,
             'entries': entries,
             'mood_data': dict(mood_counts)
         })
-
-    def get_entries(self, request):
-        return DailyEntry.objects.filter(user=request.user).order_by('-created_at')
 
 
 class LogOutTemplateView(TemplateView):

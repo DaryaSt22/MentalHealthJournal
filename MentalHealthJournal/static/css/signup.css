@@ -3,7 +3,13 @@ body {
     background-color: #e6f7ff;
     font-family: Arial, sans-serif;
     margin: 0;
-    padding: 40px;
+    padding: 0;
+
+    /* Центрирование по вертикали и горизонтали */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
 /* Контейнер для формы */

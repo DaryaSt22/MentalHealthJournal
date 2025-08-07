@@ -30,8 +30,7 @@ from rest_framework.authtoken.views import obtain_auth_token
 
 from journal.models import DailyEntry
 from MentalHealthJournal import settings
-from users.views import (AccountUpdateView, HomeView, JournalView,
-                         LoginFormView, LogOutTemplateView, SignUpFormView)
+from users.views import (HomeView, LoginFormView, LogOutTemplateView, SignUpFormView, AccountView)
 
 # from tkinter.font import names
 
@@ -49,7 +48,7 @@ urlpatterns = [
     path('', cache_page(30)(HomeView.as_view(extra_context={'title': 'MentalHealthJournal'})), name='HomeView'),
     path('login/', LoginFormView.as_view(), name='login'),
     path('sign_up/', SignUpFormView.as_view(), name='sign_up'),
-    path('account/', JournalView.as_view(), name='account'),
+    path('account/', AccountView.as_view(), name='account'),
     #path('account/', AccountUpdateView.as_view(), name='account'),
     #  path('edit_account/', name='edit_account'),
     path('logout/', LogOutTemplateView.as_view(), name='logout'),
@@ -57,6 +56,8 @@ urlpatterns = [
     path('api-token-auth/', obtain_auth_token),
     path("journal/", include("journal.urls"))
 ]
+
+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
     import debug_toolbar
