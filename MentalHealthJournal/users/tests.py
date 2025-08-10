@@ -12,7 +12,7 @@ class HomeViewTestCase(TestCase):
         print(response)
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertTemplateUsed(response, 'users/greeting.html')
+        self.assertTemplateUsed(response, 'users/index.html')
 
 
 # class LoginFormViewTestCase(TestCase):
