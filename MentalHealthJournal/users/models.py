@@ -12,7 +12,6 @@ class User(AbstractUser):
     image = models.ImageField(upload_to='users_image', null=True, blank=True)
     is_verified_email = models.BooleanField(default=False)
 
-
     def __str__(self):
         return self.username
 
@@ -45,10 +44,8 @@ class EmailVerification(models.Model):
     expiration = models.DateTimeField()
     email = models.EmailField(blank=False, null=False)
 
-
     def __str__(self):
         return f"EmailVerification object for {self.user.email}"
-
 
     def send_verification_email(self):
         send_mail(

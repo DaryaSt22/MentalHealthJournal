@@ -15,17 +15,6 @@ class HomeViewTestCase(TestCase):
         self.assertTemplateUsed(response, 'users/index.html')
 
 
-# class LoginFormViewTestCase(TestCase):
-#
-#     def test_list(self):
-#         path = reverse('login/')
-#         response = self.client.get(path)
-#
-#         self.assertEqual(response.status_code, HTTPStatus.OK)
-#         self.assertTemplateUsed(response, 'registration/login.html')
-
-
-
 class SignUpFormViewTestCase(TestCase):
 
     def setUp(self):

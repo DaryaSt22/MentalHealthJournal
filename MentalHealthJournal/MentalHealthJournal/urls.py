@@ -16,32 +16,16 @@ Including another URLconf
 """
 
 # from asyncio import start_server
-from functools import cache
 
-from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.contrib.auth import views as auth_views
 from django.urls import include, path
 from django.views.decorators.cache import cache_page
-from drf_yasg import openapi
-from rest_framework import permissions
 from rest_framework.authtoken.views import obtain_auth_token
 
-from journal.models import DailyEntry
 from MentalHealthJournal import settings
-from users.views import (HomeView, LoginFormView, LogOutTemplateView, SignUpFormView, AccountView)
-
-# from tkinter.font import names
-
-
-
-
-# from drf_yasg import openapi
-# from drf_yasg.views import get_schema_view
-# from rest_framework import permissions
-
-
+from users.views import (AccountView, HomeView, LoginFormView,
+                         LogOutTemplateView, SignUpFormView)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -49,8 +33,8 @@ urlpatterns = [
     path('login/', LoginFormView.as_view(), name='login'),
     path('sign_up/', SignUpFormView.as_view(), name='sign_up'),
     path('account/', AccountView.as_view(), name='account'),
-    #path('account/', AccountUpdateView.as_view(), name='account'),
-    #  path('edit_account/', name='edit_account'),
+    # path('account/', AccountUpdateView.as_view(), name='account'),
+    # path('edit_account/', name='edit_account'),
     path('logout/', LogOutTemplateView.as_view(), name='logout'),
     path('accounts/', include('allauth.urls')),
     path('api-token-auth/', obtain_auth_token),
@@ -71,10 +55,6 @@ if settings.DEBUG:
         document_root=settings.MEDIA_ROOT,
     )
 
-
-
-
-
 # schema_views = get_schema_view(
 #     openapi.Info(
 #         title="Mental Health Journal API",
@@ -87,9 +67,6 @@ if settings.DEBUG:
 #     public=True,
 #     permission_classes=(permissions.AllowAny,),
 # )
-
-# Cntr + D - продублировать строку
-
 
     # Swagger & Redoc
     # path('swagger/', schema_views.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
