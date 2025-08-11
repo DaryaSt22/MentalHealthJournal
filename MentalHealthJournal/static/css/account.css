@@ -1,3 +1,24 @@
+header {
+    background-color: #222;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+body {
+    background-color: #FFF5EE;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
 .form-row {
   display: flex;
   align-items: flex-start;
@@ -5,15 +26,15 @@
 }
 
 .form-row label {
-  width: 150px;          /* одинаковая ширина меток */
-  padding-top: 10px;     /* выравнивание по вертикали */
+  width: 150px;
+  padding-top: 10px;
   font-weight: bold;
 }
 
 
 .form-row input,
 .form-row textarea {
-  width: 500px;          /* одинаковая ширина всех полей */
+  width: 500px;
   height: 40px;
   font-size: 16px;
   padding: 8px;
@@ -21,6 +42,6 @@
 }
 
 .form-row textarea {
-  height: 120px;         /* чуть выше текстовые поля */
+  height: 120px;
   resize: none;
 }
