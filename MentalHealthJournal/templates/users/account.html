@@ -29,6 +29,19 @@
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="stylesheet" href="{% static 'css/account.css' %}">
 
+<style>
+      .rounded-image {
+        width: 50%;
+        border-radius: 50%;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.9);
+        padding: 0.5em;
+        margin-bottom: 0.9em;
+      }
+      .navbar-dark .navbar-nav .nav-link,
+      .navbar-dark .navbar-nav .nav-link.active { color: #fff; }
+      .navbar-dark .navbar-nav .nav-link:hover,
+      .navbar-dark .navbar-nav .nav-link:focus { color: #fff; opacity: .9; }
+    </style>
 
 <link
       rel="stylesheet"
@@ -49,20 +62,18 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'account' %}">My account</a>
-        </li>
-         <li class="nav-item">
-          <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-        </li>
-      </ul>
-    </div>
-  </div>
+   <div class="collapse navbar-collapse" id="navbarNav">
+  <ul class="navbar-nav me-auto">
+    <li class="nav-item">
+      <a class="nav-link active" aria-current="page" href="/">Home</a>
+    </li>
+  </ul>
+  <ul class="navbar-nav">
+    <li class="nav-item">
+     <a class="nav-link" href="{% url 'HomeView' %}">Logout</a>
+    </li>
+  </ul>
+</div>
 </nav>
 <h1>Welcome, {{ request.user.username }}!</h1>
 <form method="post" enctype="multipart/form-data">
@@ -70,7 +81,7 @@
 
   <p><strong>Avatar:</strong> {{ profile_form.avatar }}</p>
   {% if request.user.profile.avatar %}
-  <div style="margin-top: 10px;">
+  <div style="margin-top: 20px;">
 
   <img src="{{ request.user.profile.avatar.url }}" alt="Avatar" width="150" height="150">
 {% else %}
