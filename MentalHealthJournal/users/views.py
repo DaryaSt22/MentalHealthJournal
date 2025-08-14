@@ -7,11 +7,13 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from journal.models import DailyEntry
 from users.forms import EntryForm, LoginUserForm, ProfileForm, SignUpUserForm
 from users.models import Profile, User
 
+from django.contrib.auth import logout
 
 class HomeView(TemplateView):
     template_name = 'users/greeting.html'
@@ -96,7 +98,7 @@ class SignUpFormView(FormView):
         return redirect(self.success_url)
 
 
-class AccountView(View):
+class AccountView(LoginRequiredMixin, View):
     template_name = 'users/account.html'
 
     def get(self, request):
@@ -139,3 +141,11 @@ class AccountView(View):
 
 class LogOutTemplateView(TemplateView):
     template_name = 'registration/logout.html'
+
+def logout_then_home(request):
+    logout(request)
+    resp = redirect('HomeView')
+    resp['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+    resp['Pragma'] = 'no-cache'
+    resp['Expires'] = '0'
+    return resp

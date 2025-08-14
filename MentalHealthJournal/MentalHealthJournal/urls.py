@@ -22,6 +22,8 @@ from django.contrib import admin
 from django.urls import include, path
 from django.views.decorators.cache import cache_page
 from rest_framework.authtoken.views import obtain_auth_token
+from django.contrib.auth.views import LogoutView
+from users.views import logout_then_home
 
 from MentalHealthJournal import settings
 from users.views import (AccountView, HomeView, LoginFormView,
@@ -29,13 +31,13 @@ from users.views import (AccountView, HomeView, LoginFormView,
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', cache_page(30)(HomeView.as_view(extra_context={'title': 'MentalHealthJournal'})), name='HomeView'),
+    path('', HomeView.as_view(extra_context={'title': 'MentalHealthJournal'}), name='HomeView'),
     path('login/', LoginFormView.as_view(), name='login'),
     path('sign_up/', SignUpFormView.as_view(), name='sign_up'),
     path('account/', AccountView.as_view(), name='account'),
     # path('account/', AccountUpdateView.as_view(), name='account'),
     # path('edit_account/', name='edit_account'),
-    path('logout/', LogOutTemplateView.as_view(), name='logout'),
+    path('logout/', logout_then_home, name='logout'),
     path('accounts/', include('allauth.urls')),
     path('api-token-auth/', obtain_auth_token),
     path("journal/", include("journal.urls"))
