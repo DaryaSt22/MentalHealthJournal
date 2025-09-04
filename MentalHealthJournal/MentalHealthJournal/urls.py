@@ -19,15 +19,14 @@ Including another URLconf
 
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.auth.views import LogoutView
 from django.urls import include, path
 from django.views.decorators.cache import cache_page
 from rest_framework.authtoken.views import obtain_auth_token
-from django.contrib.auth.views import LogoutView
-from users.views import logout_then_home
+from users.views import (AccountView, HomeView, LoginFormView,
+                         LogOutTemplateView, SignUpFormView, logout_then_home)
 
 from MentalHealthJournal import settings
-from users.views import (AccountView, HomeView, LoginFormView,
-                         LogOutTemplateView, SignUpFormView)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

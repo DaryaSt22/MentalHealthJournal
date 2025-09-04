@@ -1,19 +1,17 @@
 from collections import Counter
 
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Count, OuterRef, Subquery
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
-from django.contrib.auth.mixins import LoginRequiredMixin
-
 from journal.models import DailyEntry
 from users.forms import EntryForm, LoginUserForm, ProfileForm, SignUpUserForm
 from users.models import Profile, User
 
-from django.contrib.auth import logout
 
 class HomeView(TemplateView):
     template_name = 'users/greeting.html'

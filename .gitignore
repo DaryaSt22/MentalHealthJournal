@@ -1,2 +1,9 @@
 .idea
 .venv
+*.log
+local_settings.py
+db.sqlite3
+/site
+downloads/
+lib/
+var/

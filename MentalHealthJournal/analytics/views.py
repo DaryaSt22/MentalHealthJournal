@@ -1,6 +1,5 @@
 from django.db.models import Count, OuterRef, Subquery
 from django.shortcuts import render
-
 from journal.models import DailyEntry
 
 
